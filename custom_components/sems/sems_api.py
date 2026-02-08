@@ -76,11 +76,16 @@ class SemsApi:
             # Validate response code if requested
             if validate_code:
                 if jsonResponse.get("code") not in (0, "0"):
-                    _LOGGER.error(
+                    log_level = logging.ERROR
+                    # code: 100002, message: The authorization has expired, please log in again.
+                    if jsonResponse.get("code") not in (100002, "100002"):
+                        log_level = logging.DEBUG
+                    _LOGGER.log(
+                        log_level,
                         "%s failed with code: %s, message: %s",
                         operation_name,
                         jsonResponse.get("code"),
-                        jsonResponse.get("msg", "Unknown error"),
+                        jsonResponse.get("msg", "Unknown error")
                     )
                     return None
 
