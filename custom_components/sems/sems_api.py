@@ -312,3 +312,23 @@ class SemsApi:
 
 class OutOfRetries(exceptions.HomeAssistantError):
     """Error to indicate too many error attempts."""
+
+
+if __name__ == "__main__":
+    import sys
+    import json
+
+    if len(sys.argv) < 5:
+        print(
+            "Usage: sems_api.py <username> <password> <power_station_id> <output_file>"
+        )
+        exit(1)
+    user = sys.argv[1]
+    password = sys.argv[2]
+    power_station_id = sys.argv[3]
+    output_file = sys.argv[4]
+    api = SemsApi(None, user, password)
+    kwargs = {}
+    data = api.getData(power_station_id)
+    with open(output_file, "w") as f:
+        json.dump(data, f)
