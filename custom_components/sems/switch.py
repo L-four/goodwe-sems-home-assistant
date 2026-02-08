@@ -60,7 +60,7 @@ class SemsStatusSwitch(CoordinatorEntity[SemsCoordinator], SwitchEntity):
         self._attr_device_info = device_info_for_inverter(sn, inverter_data)
         self._attr_unique_id = f"{self._sn}-switch"
         # somehow needed, no default naming
-        self._attr_name = "Switch"
+        self._attr_name = "On/Off Switch"
         _LOGGER.debug("Creating SemsStatusSwitch for Inverter %s", self._sn)
 
     @property
